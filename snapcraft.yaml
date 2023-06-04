@@ -44,7 +44,7 @@ parts:
     plugin: dump
     source-type: deb
     override-build: |
-      snapcraftctl build
+      craftctl default
     stage-packages:
        - libgbm1
        - libgtk-3-0
