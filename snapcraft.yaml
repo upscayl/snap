@@ -8,7 +8,7 @@ description: |
     This is not an official build.
 
     Source: https://github.com/upscayl/upscayl
-    Snap-Source: https://github.com/nbuechner/upscayl-snap
+    Snap-Source: https://github.com/upscayl/snap
 
 grade: stable
 confinement: strict
@@ -23,16 +23,6 @@ apps:
     extensions: [ gnome ]
     environment:
        VK_ICD_FILENAMES: "/var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json:$SNAP/usr/share/vulkan/icd.d/radeon.x86_64.json:$SNAP/usr/share/vulkan/icd.d/intel_icd.x86_64.json"
-
-#  nvidia:
-#    command: opt/Upscayl/upscayl --no-sandbox
-#    plugs: [home, x11, desktop, removable-media, shared-memory, opengl ]
-#    extensions: [ gnome ]
-#    environment:
-#      __NV_PRIME_RENDER_OFFLOAD: "1"
-#      __GLX_VENDOR_LIBRARY_NAME: "nvidia"
-#      __VK_LAYER_NV_optimus: "NVIDIA_only"
-#      VK_ICD_FILENAMES: "/var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json"
 
 plugs:
   shared-memory:
