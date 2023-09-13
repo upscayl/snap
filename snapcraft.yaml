@@ -1,6 +1,6 @@
 name: upscayl
 base: core22
-version: 2.7.5
+version: 2.8.1
 summary: Free and Open Source AI Image Upscaler
 description: |
     A Free and Open Source AI Image Upscaler
