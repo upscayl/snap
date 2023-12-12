@@ -1,6 +1,6 @@
 name: upscayl
 base: core22
-version: 2.9.4
+adopt-info: main
 summary: Free and Open Source AI Image Upscaler
 description: |
     A Free and Open Source AI Image Upscaler
@@ -30,11 +30,17 @@ plugs:
 
 parts:
   main:
-    source: https://github.com/upscayl/upscayl/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/upscayl-$SNAPCRAFT_PROJECT_VERSION-linux.deb
+    source: .
     plugin: dump
-    source-type: deb
     override-build: |
+      version=$(wget -qO- https://api.github.com/repos/upscayl/upscayl/releases/latest | jq -r '.tag_name' | cut -c2-)
+      URL=https://github.com/upscayl/upscayl/releases/download/v${version}/upscayl-${version}-linux.deb
+      wget -q -O- $URL | dpkg -x - "$SNAPCRAFT_PART_INSTALL"
+      craftctl set version="$version"
       craftctl default
+    build-packages:
+       - wget
+       - jq
     stage-packages:
        - libgbm1
        - libgtk-3-0

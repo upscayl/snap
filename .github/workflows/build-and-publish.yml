@@ -1,0 +1,47 @@
+name: Build and publish snap to stable channel
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+        #- arm64
+        - amd64
+    steps:
+      - name: Get latest release and write artifact file
+        id: get_release
+        run: |
+          release_tag=$(curl -s https://api.github.com/repos/upscayl/upscayl/releases/latest | jq -r '.tag_name')
+          echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
+          echo "latest release: $release_tag"
+      - name: Store artifact
+        id: store_artifact
+        run: |
+          echo "${{ steps.get_release.outputs.release_tag }}" > upscayl-release-info
+          echo "Saved ${{ steps.get_release.outputs.release_tag }} to upscayl-release-info"
+      - name: Upload new artifact
+        id: upload_artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: upscayl-release-info
+          path: upscayl-release-info
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - name: Snapcraft build
+        id: snapcraft_build
+        uses: diddlesnaps/snapcraft-multiarch-action@v1
+        with:
+           architecture: ${{ matrix.platform }}
+      - name: Snapcraft publish
+        id: snapcraft_publish
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
+        with:
+          snap: ${{ steps.snapcraft_build.outputs.snap }}
+          release: stable
