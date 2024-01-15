@@ -2,7 +2,6 @@ name: Build and publish snap to stable channel
 on: workflow_dispatch
 permissions:
   contents: read|write
-  actions: read|write
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest

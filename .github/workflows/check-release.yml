@@ -1,8 +1,6 @@
 name: Check for new release of upscayl
 permissions:
    contents: read|write
-   actions: read|write
-
 on:
   schedule:
     - cron: '3 * * * *'
