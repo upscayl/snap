@@ -1,6 +1,7 @@
 name: Check for new release of upscayl
 permissions:
-   contents: write
+   contents: read|write
+   actions: read|write
 
 on:
   schedule:
