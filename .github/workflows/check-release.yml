@@ -1,6 +1,4 @@
 name: Check for new release of upscayl
-permissions:
-   contents: read|write
 on:
   schedule:
     - cron: '3 * * * *'
@@ -8,7 +6,6 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Download previous release info
         id: download-artifact
