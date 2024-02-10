@@ -4,4 +4,4 @@ Type=Application
 Terminal=false
 Exec=upscayl
 Name=upscayl
-Icon=${SNAP}/usr/share/icons/hicolor/0x0/apps/upscayl.png
+Icon=${SNAP}/usr/share/icons/hicolor/128x128/apps/upscayl.png
